@@ -23,8 +23,21 @@ class Student:
         return avarage_grade
 
     def __str__(self):
-        return (f'''Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за домашнее задание: {Student.mid_grades(self)}
+        return (
+            f'''Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за домашнее задание: {Student.mid_grades(self)}
 Курсы в процессе обучения: {', '.join(self.courses_in_progress)}\nЗавершенные курсы: {', '.join(self.finished_courses)}''')
+
+    def __lt__(self, other):
+        return self.mid_grades() < other.mid_grades()
+
+    def __gt__(self, other):
+        return self.mid_grades() > other.mid_grades()
+
+    def __eq__(self, other):
+        return self.mid_grades() == other.mid_grades()
+
+    def __ne__(self, other):
+        return self.mid_grades() != other.mid_grades()
 
 
 class Mentor:
@@ -36,8 +49,7 @@ class Mentor:
 
 class Lecturer(Mentor):
     grades = {}
-    def __lt__(self, other):
-        return f'{lectors}'
+
     def mid_grades(self):
         list_grades = [list_grades for all_grades in Lecturer.grades.values() for list_grades in all_grades]
         avarage_grade = sum(list_grades) / len(list_grades)
@@ -46,6 +58,17 @@ class Lecturer(Mentor):
     def __str__(self):
         return f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: {Lecturer.mid_grades(self)}'
 
+    def __lt__(self, other):
+        return self.mid_grades() < other.mid_grades()
+
+    def __gt__(self, other):
+        return self.mid_grades() > other.mid_grades()
+
+    def __eq__(self, other):
+        return self.mid_grades() == other.mid_grades()
+
+    def __ne__(self, other):
+        return self.mid_grades() != other.mid_grades()
 
 class Reviewer(Mentor):
     def rate_hw(self, student, course, grade):
@@ -119,19 +142,22 @@ print(some_student, '\n')
 students = [student_1, student_2]
 lectors = [lecturer_1, lecturer_2]
 
-#Возможность сравнения лекторов и студентов по средней оценке:
-print(student_1.mid_grades() > lecturer_2.mid_grades())
-print(student_2.mid_grades() < lecturer_1.mid_grades())
+
+# Возможность сравнения лекторов и студентов по средней оценке:
+print(lecturer_1 > student_1)
+print(lecturer_1 == student_2)
+print(lecturer_2 < student_1)
+print(lecturer_2 != student_2)
+
+def mid_rating_students(students, course):
+    return sum(Student.grades.get('Python')) / len(students)
 
 
-# def mid_rating_students(students, course):
-#     return sum(Student.grades.get('Python')) / len(students)
-#
-#
-# def mid_rating_lectors(lecturers, course):
-#     return sum(Lecturer.grades.get('Git')) / len(lectors)
+def mid_rating_lectors(lecturers, course):
+    return sum(Lecturer.grades.get('Git')) / len(lectors)
 
 
-# print(mid_rating_students(students, 'Git'))
-# print(mid_rating_lectors(lectors, 'Python'))
+print(mid_rating_students(students, 'Git'))
+print(mid_rating_lectors(lectors, 'Python'))
+
 

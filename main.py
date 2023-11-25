@@ -36,7 +36,8 @@ class Mentor:
 
 class Lecturer(Mentor):
     grades = {}
-
+    def __lt__(self, other):
+        return f'{lectors}'
     def mid_grades(self):
         list_grades = [list_grades for all_grades in Lecturer.grades.values() for list_grades in all_grades]
         avarage_grade = sum(list_grades) / len(list_grades)
@@ -123,13 +124,14 @@ print(student_1.mid_grades() > lecturer_2.mid_grades())
 print(student_2.mid_grades() < lecturer_1.mid_grades())
 
 
-def mid_rating_students(students, course):
-    return sum(Student.grades.get('Python')) / len(students)
+# def mid_rating_students(students, course):
+#     return sum(Student.grades.get('Python')) / len(students)
+#
+#
+# def mid_rating_lectors(lecturers, course):
+#     return sum(Lecturer.grades.get('Git')) / len(lectors)
 
 
-def mid_rating_lectors(lecturers, course):
-    return sum(Lecturer.grades.get('Git')) / len(lectors)
+# print(mid_rating_students(students, 'Git'))
+# print(mid_rating_lectors(lectors, 'Python'))
 
-
-print(mid_rating_students(students, 'Git'))
-print(mid_rating_lectors(lectors, 'Python'))
